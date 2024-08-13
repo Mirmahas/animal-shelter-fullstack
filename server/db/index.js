@@ -1,3 +1,4 @@
+// db.js
 const mongoose = require("mongoose");
 
 async function connectDB() {
@@ -12,6 +13,7 @@ async function connectDB() {
     process.exit(1);
   }
 }
+
 async function closeDB() {
   try {
     await mongoose.disconnect();

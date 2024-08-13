@@ -6,4 +6,4 @@ const AdopterSchema = new Schema({
   animals: [{ type: Schema.Types.ObjectId, ref: "Animal" }],
 });
 
-module.exports = mongoose.model("Volunteer", AdopterSchema);
+module.exports = mongoose.model("Adopter", AdopterSchema);
