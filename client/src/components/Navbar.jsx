@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useContext } from "react"; // <== IMPORT
+import { AuthContext } from "../context/auth.context"; // <== IMPORT
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { isLoggedIn, user } = useContext(AuthContext); // <== ADD
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -54,6 +57,25 @@ function Navbar() {
           >
             Login
           </Link>
+          {/* {isLoggedIn && (
+            <>
+              <Link to="/">
+                <button>Home</button>
+              </Link>
+              <button>Logout</button>
+            </>
+          )}
+
+          {!isLoggedIn && (
+            <>
+              <Link to="/signup">
+                <button>Sign Up</button>
+              </Link>
+              <Link to="/login">
+                <button>Login</button>
+              </Link>
+            </>
+          )} */}
         </div>
         <div className="md:hidden">
           <button
@@ -118,6 +140,25 @@ function Navbar() {
           </Link>
         </div>
       )}
+      {/* {isLoggedIn && (
+        <>
+          <Link to="/projects">
+            <button>Projects</button>
+          </Link>
+          <button>Logout</button>
+        </>
+      )}
+
+      {!isLoggedIn && (
+        <>
+          <Link to="/signup">
+            <button>Sign Up</button>
+          </Link>
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+        </>
+      )} */}
     </nav>
   );
 }

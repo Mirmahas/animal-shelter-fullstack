@@ -11,6 +11,7 @@ import Login from "./pages/Login.page";
 import DonationsPage from "./pages/Donations.pages";
 import DogDetail from "./pages/DogDetail.pages";
 import ContactPage from "./pages/contact.pages";
+import CatDetail from "./pages/CatDetail.pages";
 // import OtherAnimals from "./pages/OtherAnimals";
 // import Donations from "./pages/Donations";;
 
@@ -29,7 +30,7 @@ function App() {
         <Route path="/donations" element={<DonationsPage />} />
         <Route path="/dogs/:dogId" element={<DogDetail />} />
         <Route path="/contact" element={<ContactPage />} />
-
+        <Route path="/dogs/:catId" element={<CatDetail />} />
         {/* <Route path="/other-animals" element={<OtherAnimals />} />
         {/* <Route path="/donations" element={<Donations />} /> */}
       </Routes>

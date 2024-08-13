@@ -19,7 +19,7 @@ animalRouter.get("/cats", async (req, res) => {
   } catch (error) {}
 });
 
-//get only animas by species cats
+//get only animas by species dogs
 animalRouter.get("/dogs", async (req, res) => {
   try {
     const animals = await Animal.find({ species: "Dog" });

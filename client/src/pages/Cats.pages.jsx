@@ -1,63 +1,26 @@
-//   const cats = [
-//     {
-//       name: "Luna",
-//       image: "https://source.unsplash.com/400x300/?cat",
-//       age: "2 años",
-//       breed: "Persa",
-//       description: "Luna es una gata tranquila y amorosa en busca de un hogar.",
-//     },
-//     {
-//       name: "Simba",
-//       image: "https://source.unsplash.com/400x300/?kitten",
-//       age: "1 año",
-//       breed: "Siamés",
-//       description: "Simba es un gatito curioso y juguetón.",
-//     },
-//     {
-//       name: "Milo",
-//       image: "https://source.unsplash.com/400x300/?cat-face",
-//       age: "3 años",
-//       breed: "Maine Coon",
-//       description: "Milo es muy sociable y le encanta estar rodeado de gente.",
-//     },
-
-//   ];
-
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function CatsPage() {
   const [cats, setCats] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const URL = import.meta.env.VITE_LOCAL_URL;
+  const navigate = useNavigate();
+
   useEffect(() => {
-    fetch(`${URL}/api/animal/cats`)
+    axios
+      .get("http://localhost:5005/api/animal/cats")
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error al obtener los datos de los gatos");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        setCats(data);
-        setLoading(false);
+        console.log(response.data); // Verifica los datos aquí
+        setCats(response.data);
       })
       .catch((error) => {
-        setError(error.message);
-        setLoading(false);
+        console.error("Error fetching cats:", error);
       });
   }, []);
 
-  if (loading) {
-    return <div className="text-center mt-16">Cargando gatos...</div>;
-  }
-
-  if (error) {
-    return <div className="text-center mt-16 text-red-500">Error: {error}</div>;
-  }
   return (
     <>
-      <header className="bg-orange-600 py-16 text-center mt-16">
+      <header className="bg-blue-600 py-16 text-center mt-16">
         <h1 className="text-white text-5xl font-extrabold">
           Cats Available for Adoption
         </h1>
@@ -71,22 +34,26 @@ function CatsPage() {
             {cats.map((cat, index) => (
               <div
                 key={index}
-                className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+                className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
+                onClick={() => navigate(`/cats/${cat._id}`)}
               >
                 <img
-                  src={cat.image}
+                  src={cat.image_url} // Asegúrate de que el campo de la imagen se llame `image_url`
                   alt={cat.name}
                   className="w-full h-48 object-cover"
                 />
                 <div className="p-6">
-                  <h3 className="text-2xl font-bold text-orange-900">
+                  <h3 className="text-2xl font-bold text-blue-900">
                     {cat.name}
                   </h3>
-                  <p className="text-gray-700 mb-2">Raza: {cat.breed}</p>
-                  <p className="text-gray-700 mb-2">Edad: {cat.age}</p>
+                  <p className="text-gray-700 mb-2">Breed: {cat.breed}</p>
+                  <p className="text-gray-700 mb-2">Age: {cat.age} years</p>
                   <p className="text-gray-600 mb-4">{cat.description}</p>
-                  {/* <button className="bg-orange-600 text-white py-2 px-4 rounded-full text-lg font-semibold hover:bg-orange-700 transition duration-300">
-                    Adopt
+                  {/* <button
+                    onClick={() => navigate("/adoption-form")}
+                    className="bg-blue-600 text-white py-2 px-4 rounded-full text-lg font-semibold mt-8 hover:bg-blue-700 transition duration-300"
+                  >
+                    Adopt {cat.name}
                   </button> */}
                 </div>
               </div>

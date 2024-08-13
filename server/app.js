@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const { connectDB } = require("./db"); // Importa desde `db.js`
+const { connectDB } = require("./db");
 
 const {
   errorHandler,
@@ -19,16 +19,21 @@ connectDB();
 
 // Rutas :
 const adoptRouter = require("./routes/adopt.routes");
+const { isAuthenticated } = require("./middleware/jwt.middleware");
 const animalRouter = require("./routes/animal.routes");
 const donationRouter = require("./routes/donation.routes");
 const userRouter = require("./routes/user.routes");
 const visitRouter = require("./routes/visits.routes");
 const medicalRecordRouter = require("./routes/medicalRecord.routes");
-const authRoutes = require("./routes/auth.routes");
+const authRouter = require("./routes/auth.routes");
 const adopterRouter = require("./routes/adopter.routes");
+// const taskRouter = require("./routes/task.routes");
+// const projectRouter = require("./routes/project.routes");
 
+// app.use("/api", isAuthenticated, projectRouter);
+// app.use("/api", isAuthenticated, taskRouter);
 app.use("/api/adoption", adopterRouter);
-app.use("/auth", authRoutes);
+app.use("/auth", authRouter);
 app.use("/api/adopt", adoptRouter);
 app.use("/api/animal", animalRouter);
 app.use("/api/donation", donationRouter);
