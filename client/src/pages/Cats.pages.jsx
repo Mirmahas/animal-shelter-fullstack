@@ -20,7 +20,7 @@ function CatsPage() {
 
   return (
     <>
-      <header className="bg-blue-600 py-16 text-center mt-16">
+      <header className="bg-orange-600 py-16 text-center mt-16">
         <h1 className="text-white text-5xl font-extrabold">
           Cats Available for Adoption
         </h1>

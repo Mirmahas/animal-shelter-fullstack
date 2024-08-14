@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import perroygato from "../assets/perroygato.jpg"; // Asegúrate de que la ruta y el nombre del archivo son correctos
+import perroygato from "../assets/perroygato.jpg";
 
 function HomePage() {
   return (
@@ -33,13 +33,13 @@ function HomePage() {
           <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-900 mb-12">
             Explore Our Categories
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-8">
             <Link
               to="/dogs"
-              className="group block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className="group block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 max-w-xs"
             >
               <img
-                src="https://source.unsplash.com/400x300/?dogs"
+                src="https://img.freepik.com/foto-gratis/retrato-grupo-adorables-cachorros_53876-64777.jpg?t=st=1723585732~exp=1723589332~hmac=6c6b721f06b62c5775df65cc97b9016fb8337ca27d3ea6cc167c4a0db431921d&w=1380"
                 alt="Dogs"
                 className="w-full h-48 object-cover group-hover:scale-105 transform transition duration-300"
               />
@@ -51,10 +51,10 @@ function HomePage() {
             </Link>
             <Link
               to="/cats"
-              className="group block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
+              className="group block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 max-w-xs"
             >
               <img
-                src="https://source.unsplash.com/400x300/?cats"
+                src="https://img.freepik.com/foto-gratis/primer-plano-adorables-gatitos-naturaleza_23-2150782245.jpg?size=626&ext=jpg"
                 alt="Cats"
                 className="w-full h-48 object-cover group-hover:scale-105 transform transition duration-300"
               />
@@ -64,35 +64,21 @@ function HomePage() {
                 </h3>
               </div>
             </Link>
-            <Link
-              to="/other-animals"
-              className="group block bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300"
-            >
-              <img
-                src="https://source.unsplash.com/400x300/?small-pets"
-                alt="Other Animals"
-                className="w-full h-48 object-cover group-hover:scale-105 transform transition duration-300"
-              />
-              <div className="p-6 text-center">
-                <h3 className="text-2xl font-bold text-orange-900 group-hover:text-orange-600 transition-colors duration-300">
-                  Other Animals
-                </h3>
-              </div>
-            </Link>
           </div>
         </div>
       </section>
+
       {/* Footer */}
-      <footer className="bg-orange-600 py-8">
+      <footer className="bg-orange-600 py-4">
         <div className="container mx-auto px-6 text-white text-center">
-          <p className="text-lg font-semibold">Animal Adoption Center</p>
-          <p className="text-sm mt-2">© 2024 All rights reserved</p>
-          <div className="flex justify-center mt-4 space-x-6">
+          <p className="text-base font-semibold">Animal Adoption Center</p>
+          <p className="text-xs mt-1">© 2024 All rights reserved</p>
+          <div className="flex justify-center mt-2 space-x-4">
             <a
               href="https://github.com/Mirmahas"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:underline"
+              className="text-sm hover:underline"
             >
               GitHub Mirmahas
             </a>

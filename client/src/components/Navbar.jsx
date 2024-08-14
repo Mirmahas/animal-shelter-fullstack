@@ -1,82 +1,87 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { useContext } from "react"; // <== IMPORT
-import { AuthContext } from "../context/auth.context"; // <== IMPORT
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/auth.context";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const { isLoggedIn, user } = useContext(AuthContext); // <== ADD
+  const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
+  const token = localStorage.getItem("authToken");
+  useEffect(() => {
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, [token]);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authToken");
+    setIsAuthenticated(false);
+    navigate("/");
+  };
+
   return (
-    <nav className="bg-orange-600 shadow-lg fixed top-0 left-0 w-full z-10">
+    <nav className="bg-orange-500 shadow-md fixed top-0 left-0 w-full z-10">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
         <Link
           to="/"
-          className="text-white text-3xl font-extrabold tracking-wide"
+          className="text-white text-3xl font-bold tracking-wide hover:text-orange-100 transition duration-300"
         >
-          Adoption of animals
+          Adoption of Animals
         </Link>
+
         <div className="hidden md:flex space-x-8">
           <Link
             to="/dogs"
-            className="text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 rounded transition duration-300 hover:text-orange-300"
+            className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
           >
             Dogs
           </Link>
           <Link
             to="/cats"
-            className="text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 rounded transition duration-300 hover:text-orange-300"
+            className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
           >
             Cats
           </Link>
           <Link
             to="/how-to-adopt"
-            className="text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 rounded transition duration-300 hover:text-orange-300"
+            className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
           >
             How to Adopt
           </Link>
           <Link
             to="/donations"
-            className="text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 rounded transition duration-300 hover:text-orange-300"
+            className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
           >
             Donations
           </Link>
           <Link
             to="/contact"
-            className="text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 rounded transition duration-300 hover:text-orange-300"
+            className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
           >
             Contact
           </Link>
-          <Link
-            to="/login"
-            className="text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 rounded transition duration-300 hover:text-orange-300"
-          >
-            Login
-          </Link>
-          {/* {isLoggedIn && (
-            <>
-              <Link to="/">
-                <button>Home</button>
-              </Link>
-              <button>Logout</button>
-            </>
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
+            >
+              Login
+            </Link>
           )}
-
-          {!isLoggedIn && (
-            <>
-              <Link to="/signup">
-                <button>Sign Up</button>
-              </Link>
-              <Link to="/login">
-                <button>Login</button>
-              </Link>
-            </>
-          )} */}
         </div>
+
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
@@ -101,64 +106,54 @@ function Navbar() {
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-orange-600 shadow-lg">
+        <div className="md:hidden bg-orange-500 shadow-md">
           <Link
             to="/dogs"
-            className="block text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 transition duration-300 hover:text-orange-300"
+            className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
           >
             Dogs
           </Link>
           <Link
             to="/cats"
-            className="block text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 transition duration-300 hover:text-orange-300"
+            className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
           >
             Cats
           </Link>
           <Link
             to="/how-to-adopt"
-            className="block text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 transition duration-300 hover:text-orange-300"
+            className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
           >
             How to Adopt
           </Link>
           <Link
             to="/donations"
-            className="block text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 transition duration-300 hover:text-orange-300"
+            className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
           >
             Donations
           </Link>
           <Link
             to="/contact"
-            className="block text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 transition duration-300 hover:text-orange-300"
+            className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
           >
             Contact
           </Link>
-          <Link
-            to="/login"
-            className="block text-white text-lg bg-orange-500 hover:bg-orange-400 py-2 px-4 transition duration-300 hover:text-orange-300"
-          >
-            Login
-          </Link>
+          {isAuthenticated ? (
+            <button
+              onClick={handleLogout}
+              className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/login"
+              className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
+            >
+              Login
+            </Link>
+          )}
         </div>
       )}
-      {/* {isLoggedIn && (
-        <>
-          <Link to="/projects">
-            <button>Projects</button>
-          </Link>
-          <button>Logout</button>
-        </>
-      )}
-
-      {!isLoggedIn && (
-        <>
-          <Link to="/signup">
-            <button>Sign Up</button>
-          </Link>
-          <Link to="/login">
-            <button>Login</button>
-          </Link>
-        </>
-      )} */}
     </nav>
   );
 }

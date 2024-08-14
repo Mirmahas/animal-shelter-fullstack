@@ -32,14 +32,14 @@ const adopterRouter = require("./routes/adopter.routes");
 
 // app.use("/api", isAuthenticated, projectRouter);
 // app.use("/api", isAuthenticated, taskRouter);
-app.use("/api/adoption", adopterRouter);
+
 app.use("/auth", authRouter);
 app.use("/api/adopt", adoptRouter);
 app.use("/api/animal", animalRouter);
 app.use("/api/donation", donationRouter);
 app.use("/api/mediacalRecord", medicalRecordRouter);
 app.use("/", userRouter);
-app.use("/api/visit", visitRouter);
+app.use("/api", visitRouter);
 app.use("/api/adopter", adopterRouter);
 
 // Use error handlers
