@@ -1,44 +1,36 @@
-// Donde guardamos y cambiamos datos, Accede a información que está en toda la app, Hace que ciertas cosas pasen cuando la página se cargacomo rellenar el formulario automaticamente
 import React, { useState, useContext, useEffect } from "react";
-// Nos dice dónde estamos en la app, como una dirección
 import { useLocation } from "react-router-dom";
-// Herramienta para hablar con el servidor
 import axios from "axios";
-// Herramienta para escoger una fecha y su estilo
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useAuthContext } from "../context/auth.context";
-// Nos permite usar la información del usuario que está conectado
 
-// Aquí empieza el formulario de adopción
 const AdoptionForm = () => {
-  // Nos dice en qué parte de la app estamos (como la dirección en la URL)
+  // Where we are in the app ( URL)
   const location = useLocation();
-  // Saca la información del gato o perro que estamos viendo
+  // Info on the cat or dog we are looking at
   const { cat, dog } = location.state || {};
-  // Saca el nombre de la mascota, sea gato o perro
+  // Name of the pet, cat or dog
   const petName = cat ? cat.name : dog ? dog.name : "";
-
-  // Saca la información del usuario que está conectado
+  // Info on the user who is logged in
   const { user } = useAuthContext();
   console.log(user);
-  // Aquí guardamos los datos que el usuario escribe en el formulario
+  //Save the data that the user enters in the form
   const [formData, setFormData] = useState({
-    petChoice: petName, // Guarda el nombre de la mascota
-    name: "", // Guarda el nombre del usuario
-    email: "", // Guarda el correo del usuario
-    phone: "", // Guarda el teléfono del usuario
-    message: "", // Guarda el mensaje que el usuario escribe
-    reason: "", // Aquí se guardaría la razón de la adopción (no se usa ahora)
+    petChoice: petName,
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
+    reason: "",
   });
 
-  // Aquí guardamos la fecha que el usuario escoge para la visita
+  // Save the date that the user chooses for the visit
   const [visitDate, setVisitDate] = useState(null);
 
-  // Cuando la página carga o cuando cambia el usuario, llenamos el formulario con la información del usuario
+  // When the page loads, we fill in the form with the user's information.
   useEffect(() => {
     if (user) {
-      // Si el usuario está conectado, ponemos su nombre, correo y teléfono en el formulario
       setFormData((prevData) => ({
         ...prevData,
         name: user.name || "",
@@ -48,71 +40,69 @@ const AdoptionForm = () => {
     }
   }, [user]);
 
-  // Esta función cambia los datos del formulario cuando el usuario escribe algo
+  // Changes the form data when the user enters something
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value, // Cambia lo que el usuario escribe en el campo correcto
+      [name]: value,
     }));
   };
 
-  // Esta función se ejecuta cuando el usuario hace clic en el botón "Submit"
+  // This function is executed when the user clicks on the ‘Submit’ button.
   const handleSubmit = async (e) => {
-    e.preventDefault(); // Esto evita que la página se recargue
+    e.preventDefault();
 
     try {
-      // Preparamos los datos de adopción para enviarlos al servidor
+      // Prepare the adoption data and send to the server.
       const adoptionData = {
-        pet: cat || dog, // Ponemos la información de la mascota
+        pet: cat || dog,
         adopter: {
           name: formData.name,
           email: formData.email,
           phone: formData.phone,
           message: formData.message,
-          userId: user._id, // Guardamos el ID del usuario conectado
+          userId: user._id,
         },
       };
-
-      // Enviamos los datos de adopción al servidor
       const adoptionResponse = await axios.post(
         "http://localhost:5005/api/adopt",
         adoptionData
       );
 
-      // Si el usuario escoge una fecha para la visita, la enviamos también
+      //Prepare the date for the visit and send to the server
       if (visitDate) {
         const visitData = {
-          animal: cat?._id || dog?._id, // ID de la mascota
-          visitor: user._id, // ID del usuario
-          visit_date: visitDate, // Fecha de la visita
-          reason: formData.message, // Mensaje del usuario
+          animal: cat?._id || dog?._id,
+          visitor: user._id,
+          visit_date: visitDate,
+          reason: formData.message,
         };
         const visitResponse = await axios.post(
           "http://localhost:5005/api/visits",
           visitData
         );
 
-        // Si la visita se programa bien, mostramos un mensaje
+        // If the visit is well timed, we display a message
         if (visitResponse.status === 201) {
-          alert("¡Visita programada con éxito!");
+          alert("Visit successfully scheduled!");
         }
       }
 
-      // Si la adopción se solicita bien, mostramos un mensaje
+      // If the adoption is successfully applied for, we display a message
       if (adoptionResponse.status === 200) {
-        alert("¡Solicitud de adopción enviada con éxito!");
+        alert("Adoption application successfully submitted!");
       }
     } catch (error) {
-      // Si hay un error, mostramos un mensaje de error
-      console.error("Error al enviar el formulario de adopción:", error);
+      // If there is an error, we display an error message.
+      console.error("Error sending the adoption form:", error);
       alert(
-        "Hubo un error al enviar tu solicitud de adopción. Por favor, intenta de nuevo."
+        " There was an error sending your adoption application. Please try again."
       );
     }
   };
 
-  // Esto muestra el formulario en la pantalla con todos los campos y el botón de envío
+  // This displays the form on the screen with all the fields and the submit button.
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-200 via-teal-200 to-blue-200 p-8 flex items-center justify-center">
       <div className="max-w-lg w-full bg-white shadow-xl rounded-lg p-10">

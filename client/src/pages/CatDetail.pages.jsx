@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useAuthContext } from "../context/auth.context"; // Importa el AuthContext
+import { useAuthContext } from "../context/auth.context";
 
 function CatDetailPage({ cats }) {
   const { catId } = useParams();
   const [cat, setCat] = useState([]);
   const navigate = useNavigate();
-  const { isLoggedIn } = useAuthContext(); // Accede a isLoggedIn desde el contexto
+  const { isLoggedIn } = useAuthContext();
 
+  // Run the function when `catId` changes, to get the cat data from the API
   useEffect(() => {
     axios
       .get("http://localhost:5005/api/animal/animals/" + catId)
@@ -22,9 +23,9 @@ function CatDetailPage({ cats }) {
 
   console.log(cat);
 
-  // Función para manejar el clic en el botón "Adopt"
+  // Function to handle the click on the "Adopt" button
   const handleAdoptClick = () => {
-    // Navega a la página de formulario de adopción y pasa la información del gato
+    // Navigate to the adoption form page and enter the cat's information.
     navigate("/adoption-form", { state: { cat } });
   };
 

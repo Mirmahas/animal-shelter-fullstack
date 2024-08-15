@@ -1,69 +1,62 @@
-// Importa las herramientas necesarias de React
+//This code handles user logins, verifying if they are authenticated and sharing that information with all the application.
+
 import React, { useState, useEffect, useContext } from "react";
-// Importa axios para hacer peticiones a la API
 import axios from "axios";
 
-// Define la URL base de la API
+// Defines the base URL of the API
 const API_URL = "http://localhost:5005";
 
-// Crea un contexto para compartir datos de usuario en toda la app
+// Share user data across the app
 const AuthContext = React.createContext();
 export const useAuthContext = () => useContext(AuthContext);
-// Define un componente que proporcionará la autenticación a otros componentes
+// Component that will provide authentication to other components
 export function AuthProviderWrapper(props) {
-  // Define tres estados:
-  // isLoggedIn: si el usuario está o no logueado
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // isLoading: si la app está comprobando la autenticación
   const [isLoading, setIsLoading] = useState(true);
-  // user: los datos del usuario autenticado
   const [user, setUser] = useState(null);
-
-  // Guarda el token de autenticación en el navegador
+  // Saves the authentication token in the browser
   const storeToken = (token) => {
     localStorage.setItem("authToken", token);
   };
 
-  // Verifica si el usuario está autenticado
+  // Check if the user is authenticated
   const authenticateUser = () => {
-    // Obtiene el token guardado en el navegador
+    // Gets the token saved in the browser
     const storedToken = localStorage.getItem("authToken");
 
-    // Si hay un token guardado
     if (storedToken) {
-      // Envía el token al servidor para verificarlo
+      // Sends the token to the server for verification
       axios
         .get(`${API_URL}/auth/verify`, {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
-          // Si el token es válido, actualiza los estados
           const user = response.data;
-          setIsLoggedIn(true); // El usuario está logueado
-          setIsLoading(false); // Ya no está cargando
-          setUser(user); // Guarda los datos del usuario
+          setIsLoggedIn(true);
+          setIsLoading(false);
+          setUser(user);
         })
         .catch((error) => {
-          // Si el token no es válido, limpia los estados
+          // If the token is invalid, clear states
           console.log(error);
-          setIsLoggedIn(false); // El usuario no está logueado
-          setIsLoading(false); // Ya no está cargando
-          setUser(null); // No hay datos de usuario
+          setIsLoggedIn(false);
+          setIsLoading(false);
+          setUser(null);
         });
     } else {
-      // Si no hay token, el usuario no está logueado
+      // If there is no token, the user is not logged in.
       setIsLoggedIn(false);
       setIsLoading(false);
       setUser(null);
     }
   };
 
-  // Comprueba la autenticación cuando el componente se carga
+  // Checks authentication when the component is loaded
   useEffect(() => {
     authenticateUser();
   }, []);
 
-  // Proporciona los datos de autenticación a los componentes hijos
+  // Provides the authentication data to the child components
   return (
     <AuthContext.Provider
       value={{ isLoggedIn, setIsLoggedIn, isLoading, user, authenticateUser }}
@@ -72,5 +65,3 @@ export function AuthProviderWrapper(props) {
     </AuthContext.Provider>
   );
 }
-
-// Exporta el componente proveedor y el contexto

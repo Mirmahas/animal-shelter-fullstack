@@ -1,112 +1,9 @@
-// import React, { useState } from "react";
-// const URL = import.meta.env.VITE_LOCAL_URL;
-// import axios from "axios";
-
-// const RegisterForm = () => {
-//   const [formData, setFormData] = useState({
-//     name: "",
-//     email: "",
-//     password: "",
-//   });
-
-//   const [message, setMessage] = useState("");
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     const response = await fetch(`${URL}/auth/register`, {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify(formData),
-//     });
-
-//     const data = await response.json();
-
-//     if (response.status === 200) {
-//       setMessage("Usuario registrado exitosamente");
-//     } else {
-//       setMessage(data.msg || "Error al registrar el usuario");
-//     }
-//   };
-
-//   return (
-//     <div className="flex justify-center items-center h-screen">
-//       <form
-//         onSubmit={handleSubmit}
-//         className="bg-white p-8 rounded-lg shadow-md w-96"
-//       >
-//         <h2 className="text-2xl font-bold mb-6 text-center">Crear Usuario</h2>
-
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Nombre
-//           </label>
-//           <input
-//             type="text"
-//             name="name"
-//             value={formData.name}
-//             onChange={handleChange}
-//             className="w-full px-3 py-2 border border-gray-300 rounded-md"
-//             required
-//           />
-//         </div>
-
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Email
-//           </label>
-//           <input
-//             type="email"
-//             name="email"
-//             value={formData.email}
-//             onChange={handleChange}
-//             className="w-full px-3 py-2 border border-gray-300 rounded-md"
-//             required
-//           />
-//         </div>
-
-//         <div className="mb-4">
-//           <label className="block text-gray-700 text-sm font-bold mb-2">
-//             Contraseña
-//           </label>
-//           <input
-//             type="password"
-//             name="password"
-//             value={formData.password}
-//             onChange={handleChange}
-//             className="w-full px-3 py-2 border border-gray-300 rounded-md"
-//             required
-//           />
-//         </div>
-//         <button
-//           type="submit"
-//           className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300"
-//         >
-//           Registrar
-//         </button>
-
-//         {message && (
-//           <div className="mt-4 text-center text-red-500">{message}</div>
-//         )}
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default RegisterForm;
-// src/pages/SignupPage.jsx
-
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SignupPage(props) {
+  // Data to put when making signup
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -115,12 +12,14 @@ function SignupPage(props) {
 
   const [message, setMessage] = useState("");
 
+  //This function updates the form data.
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const navigate = useNavigate();
 
+  //Sends the user's data to the API; if the registration is successful, it redirects the user to the login page, and if it fails, it displays an error message.
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -143,7 +42,7 @@ function SignupPage(props) {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="min-h-screen bg-gradient-to-br from-green-200 via-teal-200 to-blue-200 flex justify-center items-center">
       <form
         onSubmit={handleSubmit}
         className="bg-white p-8 rounded-lg shadow-md w-96"

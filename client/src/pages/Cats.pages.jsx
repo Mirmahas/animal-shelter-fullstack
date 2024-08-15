@@ -6,11 +6,12 @@ function CatsPage() {
   const [cats, setCats] = useState([]);
   const navigate = useNavigate();
 
+  // makes a request to the API that fetches the list of cats when the component is first loaded, and stores that data in the state.
   useEffect(() => {
     axios
       .get("http://localhost:5005/api/animal/cats")
       .then((response) => {
-        console.log(response.data); // Verifica los datos aquí
+        console.log(response.data);
         setCats(response.data);
       })
       .catch((error) => {
@@ -38,7 +39,7 @@ function CatsPage() {
                 onClick={() => navigate(`/cats/${cat._id}`)}
               >
                 <img
-                  src={cat.image_url} // Asegúrate de que el campo de la imagen se llame `image_url`
+                  src={cat.image_url}
                   alt={cat.name}
                   className="w-full h-48 object-cover"
                 />
@@ -49,12 +50,6 @@ function CatsPage() {
                   <p className="text-gray-700 mb-2">Breed: {cat.breed}</p>
                   <p className="text-gray-700 mb-2">Age: {cat.age} years</p>
                   <p className="text-gray-600 mb-4">{cat.description}</p>
-                  {/* <button
-                    onClick={() => navigate("/adoption-form")}
-                    className="bg-blue-600 text-white py-2 px-4 rounded-full text-lg font-semibold mt-8 hover:bg-blue-700 transition duration-300"
-                  >
-                    Adopt {cat.name}
-                  </button> */}
                 </div>
               </div>
             ))}

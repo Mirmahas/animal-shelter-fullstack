@@ -1,3 +1,4 @@
+//verifies if the user is authenticated by checking the JWT token
 const jwt = require("jsonwebtoken");
 const isAuthenticated = (req, res, next) => {
   try {

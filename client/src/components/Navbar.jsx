@@ -1,22 +1,28 @@
 import React, { useState, useEffect } from "react";
+// Helps us navigate to other pages
 import { Link, useNavigate } from "react-router-dom";
+// To know if the user is logged in
 import { useAuthContext } from "../context/auth.context";
 import logo from "../assets/logo.jpg";
 
 function Navbar() {
+  //(for mobile phones) To know if the menu is open or closed
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
   const { isLoggedIn, authenticateUser } = useAuthContext();
-
+  // Function to open or close the menu
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
-
+  // Get the authentication token stored in the browser
   const token = localStorage.getItem("authToken");
+
+  // When the token changes, check if the user is logged in.
   useEffect(() => {
     authenticateUser();
   }, [token]);
 
+  // Function for logout and Sends the user back to the home page.
   const handleLogout = () => {
     localStorage.removeItem("authToken");
     authenticateUser();
@@ -37,6 +43,7 @@ function Navbar() {
           </span>
         </Link>
 
+        {/* Links for pages, big screens */}
         <div className="hidden md:flex space-x-8">
           <Link
             to="/dogs"
@@ -64,6 +71,7 @@ function Navbar() {
             Contact
           </Link>
           {isLoggedIn ? (
+            // Si el usuario está conectado, muestra el botón para cerrar sesión
             <button
               onClick={handleLogout}
               className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
@@ -71,6 +79,7 @@ function Navbar() {
               Logout
             </button>
           ) : (
+            // Si no está conectado, muestra el enlace para iniciar sesión
             <Link
               to="/login"
               className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
@@ -80,6 +89,7 @@ function Navbar() {
           )}
         </div>
 
+        {/* Botón para abrir o cerrar el menú en pantallas pequeñas (como móviles) */}
         <div className="md:hidden">
           <button
             onClick={toggleMenu}
@@ -103,6 +113,7 @@ function Navbar() {
         </div>
       </div>
 
+      {/* Menú que se muestra cuando está abierto en pantallas pequeñas */}
       {isOpen && (
         <div className="md:hidden bg-orange-500 shadow-md">
           <Link
@@ -131,6 +142,7 @@ function Navbar() {
             Contact
           </Link>
           {isLoggedIn ? (
+            // Botón para cerrar sesión en pantallas pequeñas
             <button
               onClick={handleLogout}
               className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
@@ -138,6 +150,7 @@ function Navbar() {
               Logout
             </button>
           ) : (
+            // Enlace para iniciar sesión en pantallas pequeñas
             <Link
               to="/login"
               className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"

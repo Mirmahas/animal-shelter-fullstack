@@ -1,3 +1,4 @@
+//This code imports the Mongoose library to handle the connection to a MongoDB database.
 import mongoose from "mongoose";
 
 async function connectDB() {

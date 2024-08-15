@@ -1,4 +1,4 @@
-// db.js
+// This code establishes and closes a connection to a MongoDB database using Mongoose, handling errors and displaying informational messages about the status of the connection.
 const mongoose = require("mongoose");
 
 async function connectDB() {

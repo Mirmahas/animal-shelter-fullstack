@@ -1,3 +1,4 @@
+//This configuration loads and applies various middlewares (such as express.json, logger, cookieParser, and cors) to handle HTTP requests, log activity, process cookies, and manage CORS.
 const express = require("express");
 
 const logger = require("morgan");

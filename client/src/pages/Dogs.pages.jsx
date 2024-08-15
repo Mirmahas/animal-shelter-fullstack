@@ -7,11 +7,12 @@ function DogsPage() {
   const [dogs, setDogs] = useState([]);
   const navigate = useNavigate();
 
+  //Makes a request to the API that fetches the list of dogs when the component is first loaded, and stores that data in
   useEffect(() => {
     axios
       .get("http://localhost:5005/api/animal/dogs")
       .then((response) => {
-        console.log(response.data); // Verifica los datos aquí
+        console.log(response.data);
         setDogs(response.data);
       })
       .catch((error) => {
@@ -40,7 +41,7 @@ function DogsPage() {
               >
                 {/* {JSON.stringify(dog)} */}
                 <img
-                  src={dog.image_url} // Asegúrate de que el campo de la imagen se llame `image_url`
+                  src={dog.image_url}
                   alt={dog.name}
                   className="w-full h-48 object-cover"
                 />
@@ -51,7 +52,6 @@ function DogsPage() {
                   <p className="text-gray-700 mb-2">Raza: {dog.breed}</p>
                   <p className="text-gray-700 mb-2">Edad: {dog.age} años</p>
                   <p className="text-gray-600 mb-4">{dog.description}</p>{" "}
-                  {/* Asegúrate de que tengas la descripción */}
                 </div>
               </div>
             ))}
