@@ -1,13 +1,13 @@
 import axios from "axios";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { AuthContext } from "../context/auth.context"; // Importa el AuthContext
+import { useAuthContext } from "../context/auth.context"; // Importa el AuthContext
 
 function CatDetailPage({ cats }) {
   const { catId } = useParams();
   const [cat, setCat] = useState([]);
   const navigate = useNavigate();
-  const { isLoggedIn } = useContext(AuthContext); // Accede a isLoggedIn desde el contexto
+  const { isLoggedIn } = useAuthContext(); // Accede a isLoggedIn desde el contexto
 
   useEffect(() => {
     axios

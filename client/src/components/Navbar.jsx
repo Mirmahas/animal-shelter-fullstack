@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/auth.context";
+import { useAuthContext } from "../context/auth.context";
 import logo from "../assets/logo.jpg";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const { isLoggedIn, authenticateUser } = useAuthContext();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -14,14 +14,12 @@ function Navbar() {
 
   const token = localStorage.getItem("authToken");
   useEffect(() => {
-    if (token) {
-      setIsAuthenticated(true);
-    }
+    authenticateUser();
   }, [token]);
 
   const handleLogout = () => {
     localStorage.removeItem("authToken");
-    setIsAuthenticated(false);
+    authenticateUser();
     navigate("/");
   };
 
@@ -65,7 +63,7 @@ function Navbar() {
           >
             Contact
           </Link>
-          {isAuthenticated ? (
+          {isLoggedIn ? (
             <button
               onClick={handleLogout}
               className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
@@ -132,7 +130,7 @@ function Navbar() {
           >
             Contact
           </Link>
-          {isAuthenticated ? (
+          {isLoggedIn ? (
             <button
               onClick={handleLogout}
               className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
