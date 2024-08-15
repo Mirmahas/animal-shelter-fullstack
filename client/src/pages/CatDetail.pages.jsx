@@ -29,8 +29,8 @@ function CatDetailPage({ cats }) {
   };
 
   return (
-    <div className="container mx-auto px-6 py-16">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+    <div className="min-h-screen bg-gradient-to-br from-green-200 via-teal-200 to-blue-200 p-8 flex items-center justify-center">
+      <div className="max-w-4xl w-full bg-white shadow-xl rounded-lg overflow-hidden flex flex-col md:flex-row">
         <div className="md:w-2/3 p-6 flex justify-center items-center">
           <img
             src={cat.image_url}
@@ -48,8 +48,13 @@ function CatDetailPage({ cats }) {
 
           {isLoggedIn ? (
             <button
+              disabled={cat.status === "with-adopter"}
               onClick={handleAdoptClick}
-              className="bg-orange-600 text-white py-2 px-4 rounded-full text-lg font-semibold mt-8 hover:bg-orange-700 transition duration-300"
+              className={
+                cat.status !== "with-adopter"
+                  ? "bg-orange-600 text-white py-2 px-4 rounded-full text-lg font-semibold mt-8 hover:bg-orange-700 transition duration-300"
+                  : "px-8 py-3 text-white bg-gray-300 rounded focus:outline-none"
+              }
             >
               Adopt {cat.name}
             </button>

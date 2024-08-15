@@ -12,7 +12,7 @@ const HowToAdopt = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-200 via-teal-200 to-blue-200 p-8 mt-16 flex items-center justify-center">
       <div className="max-w-3xl w-full bg-white shadow-xl rounded-lg p-10">
-        <h1 className="text-4xl font-extrabold mb-8 text-gray-800 text-center">
+        <h1 className="text-5xl font-extrabold text-center text-orange-600 mb-12">
           How to Adopt a Pet
         </h1>
         <p className="text-lg text-gray-700 mb-6 leading-relaxed">

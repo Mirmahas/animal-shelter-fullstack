@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
+import logo from "../assets/logo.jpg";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -27,11 +28,15 @@ function Navbar() {
   return (
     <nav className="bg-orange-500 shadow-md fixed top-0 left-0 w-full z-10">
       <div className="container mx-auto px-6 py-4 flex justify-between items-center">
-        <Link
-          to="/"
-          className="text-white text-3xl font-bold tracking-wide hover:text-orange-100 transition duration-300"
-        >
-          Adoption of Animals
+        <Link to="/" className="flex items-center">
+          <img
+            src={logo}
+            alt="Adoption of Animals"
+            className="h-14 w-auto mr-3 rounded-full shadow-lg border-2 border-white transition-transform duration-300 hover:scale-105"
+          />
+          <span className="text-white text-3xl font-bold tracking-wide hover:text-orange-100 transition duration-300">
+            Adoption of Animals
+          </span>
         </Link>
 
         <div className="hidden md:flex space-x-8">
@@ -53,12 +58,7 @@ function Navbar() {
           >
             How to Adopt
           </Link>
-          <Link
-            to="/donations"
-            className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
-          >
-            Donations
-          </Link>
+
           <Link
             to="/contact"
             className="text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 rounded-md transition duration-300 hover:text-orange-100"
@@ -125,12 +125,7 @@ function Navbar() {
           >
             How to Adopt
           </Link>
-          <Link
-            to="/donations"
-            className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"
-          >
-            Donations
-          </Link>
+
           <Link
             to="/contact"
             className="block text-white text-lg bg-orange-400 hover:bg-orange-300 py-2 px-4 transition duration-300 hover:text-orange-100"

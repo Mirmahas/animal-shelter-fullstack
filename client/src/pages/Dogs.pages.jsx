@@ -38,7 +38,7 @@ function DogsPage() {
                 className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
                 onClick={() => navigate(`/dogs/${dog._id}`)}
               >
-                {JSON.stringify(dog)}
+                {/* {JSON.stringify(dog)} */}
                 <img
                   src={dog.image_url} // Asegúrate de que el campo de la imagen se llame `image_url`
                   alt={dog.name}

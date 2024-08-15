@@ -29,8 +29,10 @@ function DogDetailPage({ dogs }) {
   };
 
   return (
-    <div className="container mx-auto px-6 py-16">
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+    // <div className="container mx-auto px-6 py-16">
+    //   <div className="bg-white shadow-lg rounded-lg overflow-hidden flex flex-col md:flex-row">
+    <div className="min-h-screen bg-gradient-to-br from-green-200 via-teal-200 to-blue-200 p-8 flex items-center justify-center">
+      <div className="max-w-4xl w-full bg-white shadow-xl rounded-lg overflow-hidden flex flex-col md:flex-row">
         <div className="md:w-2/3 p-6 flex justify-center items-center">
           <img
             src={dog.image_url}

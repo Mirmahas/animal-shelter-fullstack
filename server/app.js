@@ -21,23 +21,15 @@ connectDB();
 const adoptRouter = require("./routes/adopt.routes");
 const { isAuthenticated } = require("./middleware/jwt.middleware");
 const animalRouter = require("./routes/animal.routes");
-const donationRouter = require("./routes/donation.routes");
 const userRouter = require("./routes/user.routes");
 const visitRouter = require("./routes/visits.routes");
-const medicalRecordRouter = require("./routes/medicalRecord.routes");
+
 const authRouter = require("./routes/auth.routes");
 const adopterRouter = require("./routes/adopter.routes");
-// const taskRouter = require("./routes/task.routes");
-// const projectRouter = require("./routes/project.routes");
-
-// app.use("/api", isAuthenticated, projectRouter);
-// app.use("/api", isAuthenticated, taskRouter);
 
 app.use("/auth", authRouter);
 app.use("/api/adopt", adoptRouter);
 app.use("/api/animal", animalRouter);
-app.use("/api/donation", donationRouter);
-app.use("/api/mediacalRecord", medicalRecordRouter);
 app.use("/", userRouter);
 app.use("/api", visitRouter);
 app.use("/api/adopter", adopterRouter);
