@@ -6,16 +6,11 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useAuthContext } from "../context/auth.context";
 
 const AdoptionForm = () => {
-  // Where we are in the app ( URL)
   const location = useLocation();
-  // Info on the cat or dog we are looking at
   const { cat, dog } = location.state || {};
-  // Name of the pet, cat or dog
   const petName = cat ? cat.name : dog ? dog.name : "";
-  // Info on the user who is logged in
   const { user } = useAuthContext();
   console.log(user);
-  //Save the data that the user enters in the form
   const [formData, setFormData] = useState({
     petChoice: petName,
     name: "",
@@ -25,10 +20,7 @@ const AdoptionForm = () => {
     reason: "",
   });
 
-  // Save the date that the user chooses for the visit
   const [visitDate, setVisitDate] = useState(null);
-
-  // When the page loads, we fill in the form with the user's information.
   useEffect(() => {
     if (user) {
       setFormData((prevData) => ({
@@ -40,7 +32,6 @@ const AdoptionForm = () => {
     }
   }, [user]);
 
-  // Changes the form data when the user enters something
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -49,12 +40,10 @@ const AdoptionForm = () => {
     }));
   };
 
-  // This function is executed when the user clicks on the ‘Submit’ button.
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      // Prepare the adoption data and send to the server.
       const adoptionData = {
         pet: cat || dog,
         adopter: {
@@ -70,7 +59,6 @@ const AdoptionForm = () => {
         adoptionData
       );
 
-      //Prepare the date for the visit and send to the server
       if (visitDate) {
         const visitData = {
           animal: cat?._id || dog?._id,
@@ -83,18 +71,15 @@ const AdoptionForm = () => {
           visitData
         );
 
-        // If the visit is well timed, we display a message
         if (visitResponse.status === 201) {
           alert("Visit successfully scheduled!");
         }
       }
 
-      // If the adoption is successfully applied for, we display a message
       if (adoptionResponse.status === 200) {
         alert("Adoption application successfully submitted!");
       }
     } catch (error) {
-      // If there is an error, we display an error message.
       console.error("Error sending the adoption form:", error);
       alert(
         " There was an error sending your adoption application. Please try again."
@@ -102,7 +87,6 @@ const AdoptionForm = () => {
     }
   };
 
-  // This displays the form on the screen with all the fields and the submit button.
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-200 via-teal-200 to-blue-200 p-8 flex items-center justify-center">
       <div className="max-w-lg w-full bg-white shadow-xl rounded-lg p-10">
@@ -125,7 +109,7 @@ const AdoptionForm = () => {
               onChange={handleChange}
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               required
-              readOnly // Campo de solo lectura, no se puede cambiar
+              readOnly
             />
           </div>
           <div className="mb-4">
@@ -227,5 +211,4 @@ const AdoptionForm = () => {
   );
 };
 
-// Exporta el formulario para que pueda ser usado en otras partes de la app
 export default AdoptionForm;

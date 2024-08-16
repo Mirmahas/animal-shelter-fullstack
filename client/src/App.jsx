@@ -11,7 +11,7 @@ import Login from "./pages/Login.page";
 import DogDetail from "./pages/DogDetail.pages";
 import ContactPage from "./pages/Contact.pages";
 import CatDetail from "./pages/CatDetail.pages";
-import { AuthProviderWrapper } from "./context/auth.context"; // Importa AuthProviderWrapper
+import { AuthProviderWrapper } from "./context/auth.context";
 
 function App() {
   return (

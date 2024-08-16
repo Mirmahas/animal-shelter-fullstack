@@ -9,7 +9,6 @@ function CatDetailPage({ cats }) {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuthContext();
 
-  // Run the function when `catId` changes, to get the cat data from the API
   useEffect(() => {
     axios
       .get("http://localhost:5005/api/animal/animals/" + catId)
@@ -22,10 +21,7 @@ function CatDetailPage({ cats }) {
   }, [catId]);
 
   console.log(cat);
-
-  // Function to handle the click on the "Adopt" button
   const handleAdoptClick = () => {
-    // Navigate to the adoption form page and enter the cat's information.
     navigate("/adoption-form", { state: { cat } });
   };
 

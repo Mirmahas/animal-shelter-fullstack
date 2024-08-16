@@ -21,11 +21,8 @@ function Login(props) {
       .post(`${API_URL}/auth/login`, requestBody)
       .then((response) => {
         console.log("JWT token", response.data.authToken);
-
-        // Guarda el token en localStorage
         localStorage.setItem("authToken", response.data.authToken);
 
-        // Redirige a la homepage
         navigate("/");
       })
       .catch((error) => {

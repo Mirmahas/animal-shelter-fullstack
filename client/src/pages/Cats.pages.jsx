@@ -5,8 +5,6 @@ import axios from "axios";
 function CatsPage() {
   const [cats, setCats] = useState([]);
   const navigate = useNavigate();
-
-  // makes a request to the API that fetches the list of cats when the component is first loaded, and stores that data in the state.
   useEffect(() => {
     axios
       .get("http://localhost:5005/api/animal/cats")

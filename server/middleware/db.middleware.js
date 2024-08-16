@@ -1,6 +1,7 @@
 //This code imports the Mongoose library to handle the connection to a MongoDB database.
 import mongoose from "mongoose";
 
+//Make a connection to a MongoDB database using Mongoose.
 async function connectDB() {
   try {
     const response = await mongoose.connect(`${process.env.MONGO_URI}`);
@@ -12,6 +13,7 @@ async function connectDB() {
     process.exit(1);
   }
 }
+//closes the connection to a MongoDB database
 async function closeDB() {
   try {
     await mongoose.disconnect();

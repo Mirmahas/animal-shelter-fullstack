@@ -2,7 +2,6 @@ const express = require("express");
 const adopterRouter = express.Router();
 const Adopter = require("../models/Adopter.model");
 
-// Ruta para añadir un nuevo adoptante
 adopterRouter.post("/adopters", async (req, res, next) => {
   try {
     const newAdopter = new Adopter(req.body);
@@ -12,7 +11,7 @@ adopterRouter.post("/adopters", async (req, res, next) => {
     next(error);
   }
 });
-// Ruta para obtener todos los adoptantes
+
 adopterRouter.get("/adopters", async (req, res, next) => {
   try {
     const adopters = await Adopter.find()
@@ -24,7 +23,6 @@ adopterRouter.get("/adopters", async (req, res, next) => {
   }
 });
 
-// Ruta para obtener un adoptante específico por su ID
 adopterRouter.get("/adopters/:id", async (req, res, next) => {
   try {
     const adopter = await Adopter.findById(req.params.id)
@@ -39,7 +37,6 @@ adopterRouter.get("/adopters/:id", async (req, res, next) => {
   }
 });
 
-// Ruta para eliminar un adoptante por su ID
 adopterRouter.delete("/adopters/:id", async (req, res, next) => {
   try {
     const deletedAdopter = await Adopter.findByIdAndDelete(req.params.id);

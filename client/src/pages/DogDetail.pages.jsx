@@ -9,7 +9,6 @@ function DogDetailPage({ dogs }) {
   const navigate = useNavigate();
   const { isLoggedIn } = useAuthContext();
 
-  //Make a request to the API and get the data for a specific dog when dogId changes, and store that data in the state.
   useEffect(() => {
     axios
       .get("http://localhost:5005/api/animal/animals/" + dogId)
@@ -23,9 +22,7 @@ function DogDetailPage({ dogs }) {
 
   console.log(dog);
 
-  // Function for handling the ‘Adopt’ button click
   const handleAdoptClick = () => {
-    // Navigate to the adoption form page and enter the dog's information.
     navigate("/adoption-form", { state: { dog } });
   };
 

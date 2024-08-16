@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 function SignupPage(props) {
-  // Data to put when making signup
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -11,15 +10,11 @@ function SignupPage(props) {
   });
 
   const [message, setMessage] = useState("");
-
-  //This function updates the form data.
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const navigate = useNavigate();
-
-  //Sends the user's data to the API; if the registration is successful, it redirects the user to the login page, and if it fails, it displays an error message.
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

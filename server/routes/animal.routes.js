@@ -2,7 +2,6 @@ const express = require("express");
 const animalRouter = express.Router();
 const Animal = require("../models/Animal.model");
 
-// Ruta para obtener todos los animales
 animalRouter.get("/animals", async (req, res, next) => {
   try {
     const animals = await Animal.find();
@@ -11,7 +10,7 @@ animalRouter.get("/animals", async (req, res, next) => {
     next(error);
   }
 });
-//get only animas by species cats
+
 animalRouter.get("/cats", async (req, res) => {
   try {
     const animals = await Animal.find({ species: "Cat" });
@@ -19,7 +18,6 @@ animalRouter.get("/cats", async (req, res) => {
   } catch (error) {}
 });
 
-//get only animas by species dogs
 animalRouter.get("/dogs", async (req, res) => {
   try {
     const animals = await Animal.find({ species: "Dog" });
@@ -28,7 +26,6 @@ animalRouter.get("/dogs", async (req, res) => {
   } catch (error) {}
 });
 
-// Ruta para obtener un animal específico por su ID
 animalRouter.get("/animals/:id", async (req, res, next) => {
   console.log("test");
   try {

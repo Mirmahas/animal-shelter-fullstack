@@ -5,7 +5,6 @@ const HowToAdopt = () => {
   const navigate = useNavigate();
 
   const handleFormButtonClick = () => {
-    // Navega a la página del formulario de adopción
     navigate("/adoption-form");
   };
 

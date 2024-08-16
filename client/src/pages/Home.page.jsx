@@ -5,7 +5,6 @@ import perroygato from "../assets/perroygato.jpg";
 function HomePage() {
   return (
     <>
-      {/* Header */}
       <header
         className="bg-cover bg-center h-screen"
         style={{
@@ -27,7 +26,6 @@ function HomePage() {
           </Link>
         </div>
       </header>
-      {/* Categories Section */}
       <section className="py-16 bg-gray-100">
         <div className="container mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold text-center text-orange-900 mb-12">
@@ -68,7 +66,6 @@ function HomePage() {
         </div>
       </section>
 
-      {/* Footer */}
       <footer className="bg-orange-600 py-4">
         <div className="container mx-auto px-6 text-white text-center">
           <p className="text-base font-semibold">Animal Adoption Center</p>

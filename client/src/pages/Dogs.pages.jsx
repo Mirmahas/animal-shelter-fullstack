@@ -7,7 +7,6 @@ function DogsPage() {
   const [dogs, setDogs] = useState([]);
   const navigate = useNavigate();
 
-  //Makes a request to the API that fetches the list of dogs when the component is first loaded, and stores that data in
   useEffect(() => {
     axios
       .get("http://localhost:5005/api/animal/dogs")
@@ -39,7 +38,6 @@ function DogsPage() {
                 className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 cursor-pointer"
                 onClick={() => navigate(`/dogs/${dog._id}`)}
               >
-                {/* {JSON.stringify(dog)} */}
                 <img
                   src={dog.image_url}
                   alt={dog.name}
@@ -49,8 +47,8 @@ function DogsPage() {
                   <h3 className="text-2xl font-bold text-orange-900">
                     {dog.name}
                   </h3>
-                  <p className="text-gray-700 mb-2">Raza: {dog.breed}</p>
-                  <p className="text-gray-700 mb-2">Edad: {dog.age} años</p>
+                  <p className="text-gray-700 mb-2">Breed: {dog.breed}</p>
+                  <p className="text-gray-700 mb-2">Age: {dog.age} years</p>
                   <p className="text-gray-600 mb-4">{dog.description}</p>{" "}
                 </div>
               </div>

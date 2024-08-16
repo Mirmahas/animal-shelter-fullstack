@@ -7,7 +7,6 @@ adoptRouter.post("/", async (req, res, next) => {
   const { adopter, pet, adoption_date } = req.body;
 
   try {
-    // Crea el nuevo adoptante o encuentra uno existente basado en userId
     let adopterRecord = await Adopter.findOne({ adopter: adopter.userId });
 
     if (!adopterRecord) {
@@ -23,14 +22,12 @@ adoptRouter.post("/", async (req, res, next) => {
       }
     }
 
-    // Guarda la relación de adopción en Adopter_Animal
     const createdAdoption = await Adopter_Animal.create({
       animal: pet._id,
       adopter: adopterRecord._id,
       adoption_date,
     });
 
-    // Actualiza el estado del animal
     await Animal.findByIdAndUpdate(pet._id, { status: "with-adopter" });
 
     res.json(createdAdoption);
