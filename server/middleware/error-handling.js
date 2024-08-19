@@ -1,3 +1,4 @@
+//This code defines two functions to handle errors in the Express application.
 function errorHandler(err, req, res, next) {
   console.error("ERROR", req.method, req.path, err);
 

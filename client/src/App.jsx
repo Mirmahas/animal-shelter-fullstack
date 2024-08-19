@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React from "react";
+import { Routes, Route, useLocation, Form } from "react-router-dom";
+import Home from "../src/pages/Home.page";
+import Navbar from "./components/Navbar";
+import Dogs from "../src/pages/Dogs.pages";
+import Cats from "../src/pages/Cats.pages";
+import HowToAdopt from "./pages/HowToAdopt.pages";
+import AdoptionForm from "./pages/AdoptionForm.pages";
+import RegisterForm from "./pages/RegisterForm.page";
+import Login from "./pages/Login.page";
+import DogDetail from "./pages/DogDetail.pages";
+import ContactPage from "./pages/Contact.pages";
+import CatDetail from "./pages/CatDetail.pages";
+import { AuthProviderWrapper } from "./context/auth.context";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <AuthProviderWrapper>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/dogs" element={<Dogs />} />
+          <Route path="/cats" element={<Cats />} />
+          <Route path="/how-to-adopt" element={<HowToAdopt />} />
+          <Route path="/adoption-form" element={<AdoptionForm />} />
+          <Route path="/register-form" element={<RegisterForm />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/dogs/:dogId" element={<DogDetail />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/cats/:catId" element={<CatDetail />} />
+        </Routes>
+      </AuthProviderWrapper>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

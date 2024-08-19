@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 
 async function connectDB() {
-  console.log("anything");
   try {
     const response = await mongoose.connect(`${process.env.MONGO_URI}`);
     console.info(
@@ -12,6 +11,7 @@ async function connectDB() {
     process.exit(1);
   }
 }
+
 async function closeDB() {
   try {
     await mongoose.disconnect();

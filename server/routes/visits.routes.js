@@ -2,7 +2,6 @@ const express = require("express");
 const visitRouter = express.Router();
 const Visit = require("../models/Visits.model");
 
-// Ruta para crear una nueva visita
 visitRouter.post("/visits", async (req, res, next) => {
   const { animal, visitor, visit_date, reason, notes } = req.body;
   try {
@@ -19,7 +18,6 @@ visitRouter.post("/visits", async (req, res, next) => {
   }
 });
 
-// Ruta para obtener todas las visitas
 visitRouter.get("/visits", async (req, res, next) => {
   try {
     const visits = await Visit.find().populate("animal").populate("visitor");
@@ -29,7 +27,6 @@ visitRouter.get("/visits", async (req, res, next) => {
   }
 });
 
-// Ruta para obtener una visita específica por su ID
 visitRouter.get("/visits/:id", async (req, res, next) => {
   try {
     const visit = await Visit.findById(req.params.id)
@@ -44,7 +41,6 @@ visitRouter.get("/visits/:id", async (req, res, next) => {
   }
 });
 
-// Ruta para actualizar una visita específica por su ID
 visitRouter.put("/visits/:id", async (req, res, next) => {
   const { animal, visitor, visit_date, reason, notes } = req.body;
   try {
@@ -68,7 +64,6 @@ visitRouter.put("/visits/:id", async (req, res, next) => {
   }
 });
 
-// Ruta para eliminar una visita específica por su ID
 visitRouter.delete("/visits/:id", async (req, res, next) => {
   try {
     const deletedVisit = await Visit.findByIdAndDelete(req.params.id);
